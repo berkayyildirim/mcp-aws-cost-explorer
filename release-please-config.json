@@ -3,7 +3,8 @@
     ".": {
       "release-type": "node",
       "package-name": "mcp-aws-cost-explorer",
-      "changelog-path": "CHANGELOG.md"
+      "changelog-path": "CHANGELOG.md",
+      "initial-version": "0.1.0"
     }
   }
 }
