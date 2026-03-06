@@ -1,6 +1,6 @@
 {
   "name": "mcp-aws-cost-explorer",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "An MCP server providing AI agents secure, read-only access to AWS Cost Explorer.",
   "keywords": [
     "mcp",
