@@ -1,67 +1,32 @@
 #!/usr/bin/env node
+import { readFileSync } from 'fs'
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
 import { Server } from '@modelcontextprotocol/sdk/server/index.js'
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { CallToolRequestSchema, ListToolsRequestSchema } from '@modelcontextprotocol/sdk/types.js'
-import { CostExplorerClient, GetCostAndUsageCommand } from '@aws-sdk/client-cost-explorer'
+import { tools } from './tools/index.js'
 
-// Initialize the MCP Server
+const __dirname = dirname(fileURLToPath(import.meta.url))
+const pkg = JSON.parse(readFileSync(join(__dirname, '..', 'package.json'), 'utf-8'))
+
 const server = new Server(
-  { name: 'mcp-aws-cost-explorer', version: '0.0.0' },
-  { capabilities: { tools: {} } },
+  { name: 'mcp-aws-cost-explorer', version: pkg.version },
+  { capabilities: { tools: {} } }
 )
 
-// Initialize AWS Client
-const ceClient = new CostExplorerClient({ region: process.env.AWS_REGION || 'us-east-1' })
+server.setRequestHandler(ListToolsRequestSchema, async () => ({
+  tools: tools.map(t => t.definition),
+}))
 
-// Define the tools exposed to the AI agent
-server.setRequestHandler(ListToolsRequestSchema, async () => {
-  return {
-    tools: [
-      {
-        name: 'get_aws_cost_and_usage',
-        description: 'Retrieve AWS cost and usage data for a specific date range.',
-        inputSchema: {
-          type: 'object',
-          properties: {
-            startDate: { type: 'string', description: 'Start date (YYYY-MM-DD)' },
-            endDate: { type: 'string', description: 'End date (YYYY-MM-DD)' },
-            granularity: { type: 'string', enum: ['DAILY', 'MONTHLY'], default: 'DAILY' },
-          },
-          required: ['startDate', 'endDate'],
-        },
-      },
-    ],
-  }
-})
-
-// Handle the execution of the tool
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
-  if (request.params.name === 'get_aws_cost_and_usage') {
-    const { startDate, endDate, granularity } = request.params.arguments as any
-
-    try {
-      const command = new GetCostAndUsageCommand({
-        TimePeriod: { Start: startDate, End: endDate },
-        Granularity: granularity,
-        Metrics: ['UnblendedCost'],
-      })
-
-      const response = await ceClient.send(command)
-
-      return {
-        content: [{ type: 'text', text: JSON.stringify(response.ResultsByTime, null, 2) }],
-      }
-    } catch (error: any) {
-      return {
-        content: [{ type: 'text', text: `AWS API Error: ${error.message}` }],
-        isError: true,
-      }
-    }
+  const tool = tools.find(t => t.definition.name === request.params.name)
+  if (!tool) {
+    throw new Error(`Unknown tool: ${request.params.name}`)
   }
-  throw new Error('Tool not found')
+  return tool.handler(request.params.arguments as Record<string, unknown>)
 })
 
-// Start the stdio transport
 async function run() {
   const transport = new StdioServerTransport()
   await server.connect(transport)

@@ -2,6 +2,19 @@
   "name": "mcp-aws-cost-explorer",
   "version": "0.2.0",
   "description": "An MCP server providing AI agents secure, read-only access to AWS Cost Explorer.",
+  "keywords": [
+    "mcp",
+    "aws",
+    "cost-explorer",
+    "finops",
+    "cloud-costs",
+    "ai-agents",
+    "claude",
+    "terraform",
+    "infrastructure",
+    "typescript",
+    "model-context-protocol"
+  ],
   "main": "dist/index.js",
   "type": "module",
   "bin": {
@@ -10,10 +23,13 @@
   "files": [
     "dist"
   ],
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "dev": "tsc --watch"
+    "dev": "tsc --watch",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --forceExit",
+    "test:coverage": "NODE_OPTIONS='--experimental-vm-modules' jest --coverage --forceExit"
   },
   "author": "Berkay Yildirim",
   "license": "MIT",
@@ -22,7 +38,10 @@
     "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
     "@types/node": "^20.0.0",
+    "jest": "^30.2.0",
+    "ts-jest": "^29.4.6",
     "typescript": "^5.0.0"
   }
 }
