@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.3.0](https://github.com/berkayyildirim/mcp-aws-cost-explorer/compare/mcp-aws-cost-explorer-v0.2.0...mcp-aws-cost-explorer-v0.3.0) (2026-03-06)
+
+
+### Features
+
+* add 6 new cost intelligence tools with modular architecture ([fba5218](https://github.com/berkayyildirim/mcp-aws-cost-explorer/commit/fba52188e59c537faa18f79502c7ed0ff7a57bf0))
+* update CI/CD ([08ce6b6](https://github.com/berkayyildirim/mcp-aws-cost-explorer/commit/08ce6b679d6ce68d107d4f17789be07644500f2c))
+
 ## [0.2.0](https://github.com/berkayyildirim/mcp-aws-cost-explorer/compare/mcp-aws-cost-explorer-v0.1.0...mcp-aws-cost-explorer-v0.2.0) (2026-03-01)
 
 
