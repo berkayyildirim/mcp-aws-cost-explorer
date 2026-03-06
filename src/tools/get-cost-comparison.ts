@@ -151,7 +151,6 @@ export const getCostComparison: ToolDefinition = {
 
       const totalPrevious = [...previousCosts.values()].reduce((s, v) => s + v, 0)
       const totalCurrent = [...currentCosts.values()].reduce((s, v) => s + v, 0)
-      const totalChange = totalCurrent - totalPrevious
       const summaryArrow = formatPercentChange(totalPrevious, totalCurrent)
 
       const rows = comparisons.map(c => {

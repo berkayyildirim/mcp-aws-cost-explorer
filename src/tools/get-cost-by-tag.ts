@@ -44,7 +44,7 @@ export const getCostByTag: ToolDefinition = {
       if (typeof args.tag_key !== 'string' || args.tag_key.trim() === '') {
         throw new AwsCostExplorerError(
           'Invalid tag_key: must be a non-empty string',
-          'INVALID_DATE'
+          'INVALID_INPUT'
         )
       }
       const tagKey = args.tag_key.trim()

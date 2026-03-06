@@ -37,7 +37,10 @@ jobs:
         
       - name: Build TypeScript
         run: npm run build
-        
+
+      - name: Run tests
+        run: npm test
+
       - name: Publish to NPM
         run: npm publish --access public
         env:
