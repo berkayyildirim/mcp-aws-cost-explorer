@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/mcp-aws-cost-explorer.svg)](https://www.npmjs.com/package/mcp-aws-cost-explorer)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Release](https://github.com/berkayyildirim/mcp-aws-cost-explorer/actions/workflows/release.yml/badge.svg)](https://github.com/berkayyildirim/mcp-aws-cost-explorer/actions/workflows/release.yml)
+[![Release](https://github.com/berkayildi/mcp-aws-cost-explorer/actions/workflows/release.yml/badge.svg)](https://github.com/berkayildi/mcp-aws-cost-explorer/actions/workflows/release.yml)
 
 A Model Context Protocol (MCP) server that gives AI agents secure, read-only access to AWS Cost Explorer.
 
@@ -32,7 +32,7 @@ AWS cost management shouldn't require clicking through console dashboards. This 
 ### Installation
 
 ```bash
-git clone https://github.com/berkayyildirim/mcp-aws-cost-explorer.git
+git clone https://github.com/berkayildi/mcp-aws-cost-explorer.git
 cd mcp-aws-cost-explorer
 make install
 make build
